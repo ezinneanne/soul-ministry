@@ -1,11 +1,54 @@
 <script setup>
 import { computed } from 'vue';
 import { Download, Share2, Sparkles, Printer } from 'lucide-vue-next';
+import certificateContractPdf from '../assets/Certificate_of_Covenant_Renewed.pdf';
 
 const props = defineProps(['user', 'aiContent']);
 
 const handlePrint = () => {
   window.print();
+};
+
+const handleDownloadPdf = () => {
+  // Create a temporary link element
+  const link = document.createElement('a');
+  link.href = certificateContractPdf;
+  link.download = 'New-Believers-Contract.pdf';
+  document.body.appendChild(link);
+  link.click();
+  document.body.removeChild(link);
+};
+
+const handleShare = async () => {
+  const shareData = {
+    title: 'Certificate of Salvation',
+    text: `${props.user?.fullName} made a decision to follow Jesus Christ on ${formattedDate.value}! 🎉`,
+    url: window.location.href
+  };
+
+  try {
+    // Check if Web Share API is supported
+    if (navigator.share) {
+      await navigator.share(shareData);
+      console.log('Shared successfully');
+    } else {
+      // Fallback: Copy link to clipboard
+      await navigator.clipboard.writeText(window.location.href);
+      alert('Link copied to clipboard! Share it with your friends.');
+    }
+  } catch (error) {
+    // User cancelled share or error occurred
+    if (error.name !== 'AbortError') {
+      console.error('Error sharing:', error);
+      // Fallback: Copy to clipboard
+      try {
+        await navigator.clipboard.writeText(window.location.href);
+        alert('Link copied to clipboard!');
+      } catch (clipboardError) {
+        console.error('Clipboard error:', clipboardError);
+      }
+    }
+  }
 };
 
 const formattedDate = computed(() => {
@@ -83,7 +126,7 @@ const firstName = computed(() => {
           <button @click="handlePrint" class="flex items-center gap-2 bg-slate-800 text-white px-6 py-3 rounded-lg hover:bg-slate-900 transition">
             <Printer class="h-5 w-5" /> Print / Save PDF
           </button>
-          <button class="flex items-center gap-2 border border-slate-300 bg-white text-slate-700 px-6 py-3 rounded-lg hover:bg-slate-50 transition">
+          <button @click="handleShare" class="flex items-center gap-2 border border-slate-300 bg-white text-slate-700 px-6 py-3 rounded-lg hover:bg-slate-50 transition">
             <Share2 class="h-5 w-5" /> Share
           </button>
         </div>
@@ -103,13 +146,9 @@ const firstName = computed(() => {
             We have already sent a copy of these resources to <span class="font-semibold text-white">{{ user.email }}</span>.
           </p>
           <ul class="space-y-3 text-sm">
-            <li class="flex gap-3 items-start">
+            <li class="flex gap-3 items-start cursor-pointer hover:underline transition" @click="handleDownloadPdf">
               <div class="bg-white/20 p-1 rounded-full mt-0.5"><Download class="h-3 w-3" /></div>
-              <span>Download the "New Believer's Guide" PDF</span>
-            </li>
-              <li class="flex gap-3 items-start">
-              <div class="bg-white/20 p-1 rounded-full mt-0.5"><Share2 class="h-3 w-3" /></div>
-              <span>Join our online community group</span>
+              <span>Download the "New Believer's Contract" PDF</span>
             </li>
           </ul>
         </div>

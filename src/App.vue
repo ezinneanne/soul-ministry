@@ -85,7 +85,7 @@ const nextStep = (step) => {
 
     <footer class="bg-white border-t border-slate-100 py-8">
       <div class="max-w-6xl mx-auto px-4 text-center text-slate-400 text-sm">
-        <p>© {{ new Date().getFullYear() }} Esther Akinsiun Ministries. All rights reserved.</p>
+        <p>© {{ new Date().getFullYear() }} Esther Akinsiun Worship Ministry. All rights reserved.</p>
         <div class="flex justify-center gap-4 mt-2">
           <a href="https://www.instagram.com/estherakinsiun/" class="hover:text-slate-600 transition">Instagram</a>
         </div>
