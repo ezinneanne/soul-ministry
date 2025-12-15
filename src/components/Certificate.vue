@@ -150,6 +150,10 @@ const firstName = computed(() => {
               <div class="bg-white/20 p-1 rounded-full mt-0.5"><Download class="h-3 w-3" /></div>
               <span>Download the "New Believer's Contract" PDF</span>
             </li>
+            <li class="flex gap-3 items-start">
+              <div class="bg-white/20 p-1 rounded-full mt-0.5"><Share2 class="h-3 w-3" /></div>
+              <a href="https://t.me/+5aUxn5sd7xNiODdk" target="_blank" rel="noopener noreferrer" class="hover:underline transition">Join our online community group</a>
+            </li>
           </ul>
         </div>
       </div>
