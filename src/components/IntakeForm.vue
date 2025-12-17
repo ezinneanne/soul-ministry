@@ -1,6 +1,6 @@
 <script setup>
 import { ref } from 'vue';
-import { User, Mail, Phone, Heart, ArrowRight } from 'lucide-vue-next';
+import { User, Mail, Phone, Heart, Calendar, ArrowRight } from 'lucide-vue-next';
 
 const emit = defineEmits(['next', 'update-user']);
 
@@ -8,6 +8,7 @@ const formData = ref({
   fullName: '',
   email: '',
   phone: '',
+  date: '',
   prayerRequest: ''
 });
 
@@ -66,6 +67,21 @@ const handleSubmit = () => {
             />
           </div>
         </div>
+      </div>
+
+      <div>
+        <label class="block text-sm font-medium text-slate-700 mb-2">Date of Decision</label>
+        <div class="relative">
+          <Calendar class="absolute left-3 top-3 h-5 w-5 text-slate-400" />
+          <input
+            required
+            v-model="formData.date"
+            type="text"
+            class="w-full pl-10 pr-4 py-3 border border-slate-300 rounded-lg focus:ring-2 focus:ring-brand-500 focus:border-transparent outline-none transition"
+            placeholder="December 20, 2025"
+          />
+        </div>
+        <p class="text-xs text-slate-500 mt-1 ml-1">Enter the date you made this decision (e.g., December 20, 2025)</p>
       </div>
 
       <div>

@@ -2,6 +2,7 @@
 import { computed } from 'vue';
 import { Download, Share2, Sparkles, Printer } from 'lucide-vue-next';
 import certificateContractPdf from '../assets/Certificate_of_Covenant_Renewed.pdf';
+import signatureImg from '../assets/signature.jpg';
 
 const props = defineProps(['user', 'aiContent']);
 
@@ -10,7 +11,6 @@ const handlePrint = () => {
 };
 
 const handleDownloadPdf = () => {
-  // Create a temporary link element
   const link = document.createElement('a');
   link.href = certificateContractPdf;
   link.download = 'New-Believers-Contract.pdf';
@@ -22,25 +22,21 @@ const handleDownloadPdf = () => {
 const handleShare = async () => {
   const shareData = {
     title: 'Certificate of Salvation',
-    text: `${props.user?.fullName} made a decision to follow Jesus Christ on ${formattedDate.value}! 🎉`,
+    text: `${props.user?.fullName} made a decision to follow Jesus Christ on ${props.user?.date}! 🎉`,
     url: window.location.href
   };
 
   try {
-    // Check if Web Share API is supported
     if (navigator.share) {
       await navigator.share(shareData);
       console.log('Shared successfully');
     } else {
-      // Fallback: Copy link to clipboard
       await navigator.clipboard.writeText(window.location.href);
       alert('Link copied to clipboard! Share it with your friends.');
     }
   } catch (error) {
-    // User cancelled share or error occurred
     if (error.name !== 'AbortError') {
       console.error('Error sharing:', error);
-      // Fallback: Copy to clipboard
       try {
         await navigator.clipboard.writeText(window.location.href);
         alert('Link copied to clipboard!');
@@ -69,7 +65,7 @@ const firstName = computed(() => {
         <span class="font-semibold">Congratulations! A New Chapter Begins.</span>
       </div>
       <h2 class="text-4xl font-serif font-bold text-slate-900 mb-2">Welcome to the Family, {{ firstName }}</h2>
-      <p class="text-slate-600">Your decision today is marked and celebrated. Here is your certificate of salvation.</p>
+      <p class="text-slate-600">Your decision today is marked and celebrated. Here is your certificate of covenant.</p>
     </div>
 
     <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
@@ -84,7 +80,7 @@ const firstName = computed(() => {
 
           <div class="mb-8">
             <h3 class="text-lg uppercase tracking-[0.3em] text-slate-500 mb-2">Certificate of</h3>
-            <h1 class="text-4xl md:text-5xl font-serif font-bold text-brand-900">Salvation</h1>
+            <h1 class="text-4xl md:text-5xl font-serif font-bold text-brand-900">Covenant</h1>
           </div>
 
           <p class="text-slate-600 italic text-lg mb-6">This certifies that</p>
@@ -93,33 +89,51 @@ const firstName = computed(() => {
             {{ user.fullName }}
           </div>
 
-          <p class="text-slate-600 text-lg mb-8 leading-relaxed">
-            Has publicly declared their faith and decision to follow Jesus Christ on this day.<br/>
-            <span class="font-semibold text-slate-800">{{ formattedDate }}</span>
+          <p class="text-slate-600 text-lg mb-6 leading-relaxed">
+            Has publicly declared their faith and decision to follow Jesus Christ on<br/>
+            <span class="font-semibold text-slate-800">{{ user.date || formattedDate }}</span>
+          </p>
+
+          <p class="text-slate-700 text-base mb-8 leading-relaxed max-w-3xl mx-auto">
+            Having confessed Him as Savior, Redeemer, and Lord, this child of God is now a
+            new creation, washed by His blood, sealed by His Spirit, and forever written in the
+            Lamb's Book of Life.
+          </p>
+
+          <p class="text-slate-700 text-base mb-8 leading-relaxed max-w-3xl mx-auto">
+            From this day forward, you belong to Christ alone. You are chosen, beloved, and
+            set apart to live for His glory and bear fruit for His Kingdom.
+          </p>
+
+          <p class="text-slate-600 italic text-sm mb-10 max-w-2xl mx-auto">
+            "I have been crucified with Christ. It is no longer I who live, but Christ who lives in
+            me. And the life I now live in the flesh I live by faith in the Son of God, who loved
+            me and gave Himself for me." – Galatians 2:20
           </p>
 
           <div class="flex justify-center items-center gap-12 mt-12">
             <div class="text-center">
+              <img :src="signatureImg" alt="Esther Akinsiun's signature" class="w-40 h-auto mb-2 mx-auto" />
               <div class="w-40 border-b border-slate-400 mb-2"></div>
               <p class="text-xs uppercase tracking-widest text-slate-500">Signature</p>
             </div>
             
             <div class="w-24 h-24 bg-gradient-to-br from-yellow-300 to-yellow-600 rounded-full flex items-center justify-center shadow-inner relative">
               <div class="w-20 h-20 border-2 border-white/50 rounded-full flex items-center justify-center">
-                  <Sparkles class="text-white h-10 w-10 opacity-80" />
+                <Sparkles class="text-white h-10 w-10 opacity-80" />
               </div>
             </div>
 
             <div class="text-center">
-                <div class="text-xl font-serif font-bold text-brand-800 leading-none mb-1">Esther Akinsiun</div>
+              <div class="text-xl font-serif font-bold text-brand-800 leading-none mb-1">Esther Akinsiun</div>
               <div class="w-40 border-b border-slate-400 mb-2"></div>
-              <p class="text-xs uppercase tracking-widest text-slate-500">Ministry</p>
+              <p class="text-xs uppercase tracking-widest text-slate-500">Kingdom Recruiter</p>
             </div>
           </div>
           
-            <div class="mt-10 text-sm text-slate-500 font-serif italic">
-              "{{ aiContent?.scriptureReference || "John 3:16" }}"
-            </div>
+          <div class="mt-10 text-sm text-slate-500 font-serif italic">
+            "{{ aiContent?.scriptureReference || "John 3:16" }}"
+          </div>
         </div>
 
         <div class="mt-6 flex gap-4 justify-center print:hidden">
@@ -146,13 +160,13 @@ const firstName = computed(() => {
             We have already sent a copy of these resources to <span class="font-semibold text-white">{{ user.email }}</span>.
           </p>
           <ul class="space-y-3 text-sm">
-            <li class="flex gap-3 items-start cursor-pointer hover:underline transition" @click="handleDownloadPdf">
+            <li class="flex gap-3 items-start cursor-pointer hover:text-white/90 transition" @click="handleDownloadPdf">
               <div class="bg-white/20 p-1 rounded-full mt-0.5"><Download class="h-3 w-3" /></div>
               <span>Download the "New Believer's Contract" PDF</span>
             </li>
             <li class="flex gap-3 items-start">
               <div class="bg-white/20 p-1 rounded-full mt-0.5"><Share2 class="h-3 w-3" /></div>
-              <a href="https://t.me/+5aUxn5sd7xNiODdk" target="_blank" rel="noopener noreferrer" class="hover:underline transition">Join our online community group</a>
+              <a href="https://t.me/+5aUxn5sd7xNiODdk" target="_blank" rel="noopener noreferrer" class="hover:text-white/90 transition underline">Join our online community group</a>
             </li>
           </ul>
         </div>
