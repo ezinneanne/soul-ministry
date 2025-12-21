@@ -111,22 +111,22 @@ const firstName = computed(() => {
             me and gave Himself for me." – Galatians 2:20
           </p>
 
-          <div class="flex justify-center items-center gap-12 mt-12">
-            <div class="text-center">
-              <img :src="signatureImg" alt="Esther Akinsiun's signature" class="w-40 h-auto mb-2 mx-auto" />
-              <div class="w-40 border-b border-slate-400 mb-2"></div>
+          <div class="flex flex-col sm:flex-row justify-center items-center gap-8 sm:gap-12 mt-12">
+            <div class="text-center order-2 sm:order-1">
+              <img :src="signatureImg" alt="Esther Akinsiun's signature" class="w-32 sm:w-40 h-auto mb-2 mx-auto" />
+              <div class="w-32 sm:w-40 border-b border-slate-400 mb-2 mx-auto"></div>
               <p class="text-xs uppercase tracking-widest text-slate-500">Signature</p>
             </div>
             
-            <div class="w-24 h-24 bg-gradient-to-br from-yellow-300 to-yellow-600 rounded-full flex items-center justify-center shadow-inner relative">
-              <div class="w-20 h-20 border-2 border-white/50 rounded-full flex items-center justify-center">
-                <Sparkles class="text-white h-10 w-10 opacity-80" />
+            <div class="w-20 h-20 sm:w-24 sm:h-24 bg-gradient-to-br from-yellow-300 to-yellow-600 rounded-full flex items-center justify-center shadow-inner relative order-1 sm:order-2">
+              <div class="w-16 h-16 sm:w-20 sm:h-20 border-2 border-white/50 rounded-full flex items-center justify-center">
+                <Sparkles class="text-white h-8 w-8 sm:h-10 sm:w-10 opacity-80" />
               </div>
             </div>
 
-            <div class="text-center">
-              <div class="text-xl font-serif font-bold text-brand-800 leading-none mb-1">Esther Akinsiun</div>
-              <div class="w-40 border-b border-slate-400 mb-2"></div>
+            <div class="text-center order-3">
+              <div class="text-lg sm:text-xl font-serif font-bold text-brand-800 leading-none mb-1">Esther Akinsiun</div>
+              <div class="w-32 sm:w-40 border-b border-slate-400 mb-2 mx-auto"></div>
               <p class="text-xs uppercase tracking-widest text-slate-500">Kingdom Recruiter</p>
             </div>
           </div>
@@ -136,11 +136,11 @@ const firstName = computed(() => {
           </div>
         </div>
 
-        <div class="mt-6 flex gap-4 justify-center print:hidden">
-          <button @click="handlePrint" class="flex items-center gap-2 bg-slate-800 text-white px-6 py-3 rounded-lg hover:bg-slate-900 transition">
+        <div class="mt-6 flex flex-col sm:flex-row gap-4 justify-center print:hidden">
+          <button @click="handlePrint" class="flex items-center justify-center gap-2 bg-slate-800 text-white px-6 py-3 rounded-lg hover:bg-slate-900 transition">
             <Printer class="h-5 w-5" /> Print / Save PDF
           </button>
-          <button @click="handleShare" class="flex items-center gap-2 border border-slate-300 bg-white text-slate-700 px-6 py-3 rounded-lg hover:bg-slate-50 transition">
+          <button @click="handleShare" class="flex items-center justify-center gap-2 border border-slate-300 bg-white text-slate-700 px-6 py-3 rounded-lg hover:bg-slate-50 transition">
             <Share2 class="h-5 w-5" /> Share
           </button>
         </div>
